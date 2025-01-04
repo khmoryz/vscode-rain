@@ -48,11 +48,15 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(refreshDisposable);
 
   const deployStackDisposable = vscode.commands.registerCommand("vscode-rain.deployStack", (item: RainItem) => {
-    vscode.window.showInputBox({
-      prompt: "Enter the template file path",
-      placeHolder: "Template file path",
-    }).then((templateFilePath) => {
-      if (templateFilePath) {
+    vscode.window.showOpenDialog({
+      canSelectMany: false,
+      openLabel: 'Select Template File',
+      filters: {
+        'Templates': ['.yaml', '.yml', '.json']
+      }
+    }).then((fileUri) => {
+      if (fileUri && fileUri[0]) {
+        const templateFilePath = fileUri[0].fsPath;
         const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
         terminal.sendText(`rain deploy ${templateFilePath} ${item.label}`);
         terminal.show();
