@@ -16,6 +16,14 @@
       {
         "command": "vscode-rain.deploy",
         "title": "Rain: Deploy with active file"
+      },
+      {
+        "command": "vscode-rain.refreshView",
+        "title": "Rain: Refresh View",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
       }
     ],
     "viewsContainers": {
@@ -34,6 +42,14 @@
           "name": "Rain"
         }
       ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-rain.refreshView",
+          "group": "navigation"
+        }
+      ]  
     }
   },
   "scripts": {

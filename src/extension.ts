@@ -38,7 +38,14 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposable);
 
-  vscode.window.registerTreeDataProvider("vscode-rain-view", new RainViewProvider());
+  const rainViewProvider = new RainViewProvider();
+  vscode.window.registerTreeDataProvider("vscode-rain-view", rainViewProvider);
+
+  const refreshDisposable = vscode.commands.registerCommand("vscode-rain.refreshView", () => {
+    rainViewProvider.refresh();
+  });
+
+  context.subscriptions.push(refreshDisposable);
 }
 
 // This method is called when your extension is deactivated
