@@ -1,6 +1,6 @@
 {
-  "name": "vs-hello-world",
-  "displayName": "vs-hello-world",
+  "name": "vscode-rain",
+  "displayName": "vscode-rain",
   "description": "Hello World",
   "version": "0.0.1",
   "engines": {
@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "vs-hello-world.helloWorld",
-        "title": "Hello World"
+        "command": "vscode-rain.deploy",
+        "title": "Rain: Deploy with active file"
       }
     ]
   },
