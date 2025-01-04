@@ -46,6 +46,23 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(refreshDisposable);
+
+  const deployStackDisposable = vscode.commands.registerCommand("vscode-rain.deployStack", (item: RainItem) => {
+    vscode.window.showInputBox({
+      prompt: "Enter the template file path",
+      placeHolder: "Template file path",
+    }).then((templateFilePath) => {
+      if (templateFilePath) {
+        const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
+        terminal.sendText(`rain deploy ${templateFilePath} ${item.label}`);
+        terminal.show();
+      } else {
+        vscode.window.showErrorMessage("Template file path is required");
+      }
+    });
+  });
+
+  context.subscriptions.push(deployStackDisposable);
 }
 
 // This method is called when your extension is deactivated
@@ -96,6 +113,7 @@ class RainItem extends vscode.TreeItem {
     super(label);
     this.tooltip = `${label} - ${status}`;
     this.description = status;
+    this.contextValue = 'rainItem';
     // Choose the icon based on the status
     // TODO: Add light icons
     // TODO: Make sure to cover all statuses

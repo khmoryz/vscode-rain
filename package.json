@@ -24,6 +24,14 @@
           "light": "resources/light/refresh.svg",
           "dark": "resources/dark/refresh.svg"
         }
+      },
+      {
+        "command": "vscode-rain.deployStack",
+        "title": "Edit",
+        "icon": {
+          "light": "resources/light/cloud-upload.svg",
+          "dark": "resources/dark/cloud-upload.svg"
+        }
       }
     ],
     "viewsContainers": {
@@ -49,7 +57,13 @@
           "command": "vscode-rain.refreshView",
           "group": "navigation"
         }
-      ]  
+      ],
+      "view/item/context": [
+        {
+          "command": "vscode-rain.deployStack",
+          "group": "inline"
+        }
+      ]
     }
   },
   "scripts": {
