@@ -17,7 +17,24 @@
         "command": "vscode-rain.deploy",
         "title": "Rain: Deploy with active file"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscode-rain-sidebar",
+          "title": "Rain",
+          "icon": "resources/rain-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscode-rain-sidebar": [
+        {
+          "id": "vscode-rain-view",
+          "name": "Rain"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
