@@ -17,6 +17,5 @@ See the [Getting started](https://github.com/aws-cloudformation/rain?tab=readme-
 
 ## Extension Settings
 
-* `rain.path`: path to the `rain` command, optionally including [parameters](https://github.com/aws-cloudformation/cfn-python-lint/#parameters) as well:
-
-TODO: Put an image
+* `rain.path`: path to the `rain` command, optionally including [parameters](https://github.com/aws-cloudformation/cfn-python-lint/#parameters) as well.
+* `rain.profile`: AWS profile name. Read from the AWS CLI configuration file.
