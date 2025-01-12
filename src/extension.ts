@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as rainView from "./rainView";
+import * as rainCommand from "./rainCommand";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -37,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(`Do you want to deploy ${filePath} to stack ${stackName}?`, "Yes", "No").then((selection) => {
               if (selection === "Yes") {
                 const terminal = vscode.window.createTerminal(`Rain Deploy: ${stackName}`);
-                terminal.sendText(`${rainPath} deploy ${filePath} ${stackName}`);
+                terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
                 terminal.show();
               }
             });
@@ -70,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (fileUri && fileUri[0]) {
         const templateFilePath = fileUri[0].fsPath;
         const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
-        terminal.sendText(`${rainPath} deploy ${templateFilePath} ${item.label}`);
+        terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], []));
         terminal.show();
       } else {
         vscode.window.showErrorMessage("Template file path is required");

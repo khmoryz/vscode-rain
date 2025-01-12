@@ -73,6 +73,11 @@
           "type": "string",
           "default": "rain",
           "description": "Path to rain"
+        },
+        "rain.profile": {
+          "type": "string",
+          "default": "",
+          "description": "Profile to use"
         }
       }
     }

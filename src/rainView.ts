@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { exec } from "child_process";
+import * as rainCommand from "./rainCommand";
 
 export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
   private _onDidChangeTreeData: vscode.EventEmitter<RainItem | undefined | void> = new vscode.EventEmitter<RainItem | undefined | void>();
@@ -30,7 +31,7 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
 
   private getRainItems(): Thenable<RainItem[]> {
     return new Promise((resolve, reject) => {
-      exec(`${this.rainPath} ls`, (error, stdout, stderr) => {
+      exec(rainCommand.get("ls", [], []), (error, stdout, stderr) => {
         if (error) {
           vscode.window.showErrorMessage(`Error: ${stderr}`);
           reject([]);
