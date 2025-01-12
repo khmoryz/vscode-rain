@@ -10,6 +10,18 @@ export function activate(context: vscode.ExtensionContext) {
   // This line of code will only be executed once when your extension is activated
   console.log('Congratulations, your extension "vscode-rain" is now active!');
 
+  let rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
+
+  const updateRainPath = () => {
+    rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
+  };
+
+  vscode.workspace.onDidChangeConfiguration((e) => {
+    if (e.affectsConfiguration("rain.path")) {
+      updateRainPath();
+    }
+  });
+
   const disposable = vscode.commands.registerCommand("vscode-rain.deploy", () => {
     // Execute `rain deploy` with active file path after inputing the stack name
     vscode.window
@@ -25,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(`Do you want to deploy ${filePath} to stack ${stackName}?`, "Yes", "No").then((selection) => {
               if (selection === "Yes") {
                 const terminal = vscode.window.createTerminal(`Rain Deploy: ${stackName}`);
-                terminal.sendText(`rain deploy ${filePath} ${stackName}`);
+                terminal.sendText(`${rainPath} deploy ${filePath} ${stackName}`);
                 terminal.show();
               }
             });
@@ -58,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (fileUri && fileUri[0]) {
         const templateFilePath = fileUri[0].fsPath;
         const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
-        terminal.sendText(`rain deploy ${templateFilePath} ${item.label}`);
+        terminal.sendText(`${rainPath} deploy ${templateFilePath} ${item.label}`);
         terminal.show();
       } else {
         vscode.window.showErrorMessage("Template file path is required");
@@ -76,6 +88,22 @@ class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
   private _onDidChangeTreeData: vscode.EventEmitter<RainItem | undefined | void> = new vscode.EventEmitter<RainItem | undefined | void>();
   readonly onDidChangeTreeData: vscode.Event<RainItem | undefined | void> = this._onDidChangeTreeData.event;
 
+
+  private rainPath: string = "rain";
+
+  constructor() {
+    this.updateRainPath();
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration("rain.path")) {
+        this.updateRainPath();
+      }
+    });
+  }
+
+  private updateRainPath() {
+    this.rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
+  }
+
   getTreeItem(element: RainItem): vscode.TreeItem {
     return element;
   }
@@ -86,7 +114,7 @@ class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
 
   private getRainItems(): Thenable<RainItem[]> {
     return new Promise((resolve, reject) => {
-      exec("rain ls", (error, stdout, stderr) => {
+      exec(`${this.rainPath} ls`, (error, stdout, stderr) => {
         if (error) {
           vscode.window.showErrorMessage(`Error: ${stderr}`);
           reject([]);

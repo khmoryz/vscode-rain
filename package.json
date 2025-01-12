@@ -64,6 +64,17 @@
           "group": "inline"
         }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Rain configuration",
+      "properties": {
+        "rain.path": {
+          "type": "string",
+          "default": "rain",
+          "description": "Path to rain"
+        }
+      }
     }
   },
   "scripts": {
