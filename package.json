@@ -61,6 +61,7 @@
       "view/item/context": [
         {
           "command": "vscode-rain.deployStack",
+          "when": "viewItem == rainItem",
           "group": "inline"
         }
       ]
