@@ -26,6 +26,10 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
   }
 
   getChildren(element?: RainItem): Thenable<RainItem[]> {
+    if (element === undefined) {
+      return Promise.resolve([new RainRoot("STACK LIST", vscode.TreeItemCollapsibleState.Expanded)]);
+    }
+    vscode.window.showInformationMessage("Getting rain items");
     return this.getRainItems();
   }
 
@@ -54,6 +58,9 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
+}
+
+export class RainRoot extends vscode.TreeItem {
 }
 
 export class RainItem extends vscode.TreeItem {
