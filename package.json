@@ -52,13 +52,12 @@
       ]
     },
     "menus": {
-      "view/title": [
+      "view/item/context": [
         {
           "command": "vscode-rain.refreshView",
-          "group": "navigation"
-        }
-      ],
-      "view/item/context": [
+          "when": "viewItem == ListGroup",
+          "group": "inline"
+        },
         {
           "command": "vscode-rain.deployStack",
           "when": "viewItem == rainItem",
