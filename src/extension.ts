@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import * as rainView from "./rainView";
 import * as rainCommand from "./rainCommand";
+import { exec } from "child_process";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -57,8 +58,20 @@ export function activate(context: vscode.ExtensionContext) {
   const refreshDisposable = vscode.commands.registerCommand("vscode-rain.refreshView", () => {
     rainViewProvider.refresh();
   });
-
   context.subscriptions.push(refreshDisposable);
+
+  const consoleDisposable = vscode.commands.registerCommand("vscode-rain.console", () => {
+    exec(rainCommand.get("console", [], []), (error, stdout, stderr) => {
+      if (error) {
+        vscode.window.showErrorMessage(`Error: ${stderr}`);
+        return;
+      }
+      const terminal = vscode.window.createTerminal("Rain Console");
+      terminal.sendText(stdout);
+      terminal.show();
+    });
+  });
+  context.subscriptions.push(consoleDisposable);
 
   const deployStackDisposable = vscode.commands.registerCommand("vscode-rain.deployStack", (item: rainView.RainItem) => {
     vscode.window.showOpenDialog({

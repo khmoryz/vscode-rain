@@ -18,6 +18,14 @@
         "title": "Rain: Deploy with active file"
       },
       {
+        "command": "vscode-rain.console",
+        "title": "Rain: Open console with browser",
+        "icon": {
+          "light": "resources/light/window.svg",
+          "dark": "resources/dark/window.svg"
+        }
+      },
+      {
         "command": "vscode-rain.refreshView",
         "title": "Rain: Refresh View",
         "icon": {
@@ -52,6 +60,12 @@
       ]
     },
     "menus": {
+      "view/title": [
+        {
+          "command": "vscode-rain.console",
+          "group": "navigation"
+        }
+      ],
       "view/item/context": [
         {
           "command": "vscode-rain.refreshView",
