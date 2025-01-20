@@ -1,13 +1,15 @@
-# vscode-rain (preview)
+# vscode-rain (beta)
 
-VS Code Rain is developed by the community.
-VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a command line tool for working with AWS CloudFormation templates and stacks.
+VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a command line tool for working with AWS CloudFormation templates and stacks.  
+
+> [!NOTE]
+> VS Code Rain is not an official AWS tool and is currently tested only on macOS.
 
 ## Features
 
 - Uses [Rain](https://github.com/aws-cloudformation/rain) to deploy the template and show stacks.
 
-TODO: Put an image
+<img src="resources/rain-tree-view.png" width="520">
 
 ## Requirements
 
