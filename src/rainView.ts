@@ -29,7 +29,6 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
     if (element === undefined) {
       return Promise.resolve([new RainRoot("STACK LIST", vscode.TreeItemCollapsibleState.Expanded, "ListGroup")]);
     }
-    vscode.window.showInformationMessage("Getting rain items");
     return this.getRainItems();
   }
 
@@ -69,7 +68,6 @@ export class RainRoot extends vscode.TreeItem {
 
 export class RainItem extends vscode.TreeItem {
   constructor(label: string, status: string) {
-    vscode.window.showInformationMessage(`Stack ${label} is ${status}`);
     super(label);
     this.tooltip = `${label} - ${status}`;
     this.description = status;

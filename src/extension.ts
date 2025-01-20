@@ -36,13 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
           const activeTextEditor = vscode.window.activeTextEditor;
           if (activeTextEditor) {
             const filePath = activeTextEditor.document.fileName;
-            vscode.window.showInformationMessage(`Do you want to deploy ${filePath} to stack ${stackName}?`, "Yes", "No").then((selection) => {
-              if (selection === "Yes") {
                 const terminal = vscode.window.createTerminal(`Rain Deploy: ${stackName}`);
                 terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
                 terminal.show();
-              }
-            });
           } else {
             vscode.window.showErrorMessage("No active file found");
           }
