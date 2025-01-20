@@ -74,40 +74,39 @@ export class RainItem extends vscode.TreeItem {
     this.tooltip = `${label} - ${status}`;
     this.description = status;
     this.contextValue = "rainItem";
-    // Choose the icon based on the status
-    // TODO: Make sure to cover all statuses
     switch (status) {
       case "CREATE_COMPLETE":
+      case "UPDATE_COMPLETE":
+      case "IMPORT_COMPLETE":
         this.iconPath = {
           light: vscode.Uri.file(__dirname + "/../resources/light/pass.svg"),
           dark: vscode.Uri.file(__dirname + "/../resources/dark/pass.svg"),
         };
         break;
-      case "REVIEW_IN_PROGRESS":
-        this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/light/info.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/dark/info.svg"),
-        };
-        break;
       case "CREATE_IN_PROGRESS":
+      case "DELETE_IN_PROGRESS":
+      case "REVIEW_IN_PROGRESS":
+      case "UPDATE_IN_PROGRESS":
+      case "IMPORT_IN_PROGRESS":
         this.iconPath = {
           light: vscode.Uri.file(__dirname + "/../resources/light/info.svg"),
           dark: vscode.Uri.file(__dirname + "/../resources/dark/info.svg"),
-        };
-        break;
-      case "ROLLBACK_COMPLETE":
-        this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
-        };
-        break;
-      case "ROLLBACK_IN_PROGRESS":
-        this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
         };
         break;
       case "CREATE_FAILED":
+      case "DELETE_FAILED":
+      case "ROLLBACK_FAILED":
+      case "ROLLBACK_COMPLETE":
+      case "ROLLBACK_IN_PROGRESS":
+      case "UPDATE_COMPLETE_CLEANUP_IN_PROGRESS":
+      case "UPDATE_FAILED":
+      case "UPDATE_ROLLBACK_COMPLETE":
+      case "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS":
+      case "UPDATE_ROLLBACK_FAILED":
+      case "UPDATE_ROLLBACK_IN_PROGRESS":
+      case "IMPORT_ROLLBACK_IN_PROGRESS":
+      case "IMPORT_ROLLBACK_FAILED":
+      case "IMPORT_ROLLBACK_COMPLETE":
         this.iconPath = {
           light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
           dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
