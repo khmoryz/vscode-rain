@@ -1,6 +1,7 @@
 {
   "name": "vscode-rain",
   "displayName": "vscode-rain",
+  "publisher": "khmoryz",
   "description": "Hello World",
   "version": "0.0.1",
   "engines": {
