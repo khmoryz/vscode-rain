@@ -2,8 +2,8 @@
   "name": "vscode-rain",
   "displayName": "vscode-rain",
   "publisher": "khmoryz",
-  "description": "Hello World",
-  "version": "0.0.2",
+  "description": "VSCode Extension for Rain",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/khmoryz/vscode-rain"
