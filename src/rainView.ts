@@ -75,49 +75,48 @@ export class RainItem extends vscode.TreeItem {
     this.description = status;
     this.contextValue = "rainItem";
     // Choose the icon based on the status
-    // TODO: Add light icons
     // TODO: Make sure to cover all statuses
     switch (status) {
       case "CREATE_COMPLETE":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/pass.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/pass.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/pass.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/pass.svg"),
         };
         break;
       case "REVIEW_IN_PROGRESS":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/info.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/info.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/info.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/info.svg"),
         };
         break;
       case "CREATE_IN_PROGRESS":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/info.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/info.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/info.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/info.svg"),
         };
         break;
       case "ROLLBACK_COMPLETE":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/error.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/error.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
         };
         break;
       case "ROLLBACK_IN_PROGRESS":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/error.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/error.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
         };
         break;
       case "CREATE_FAILED":
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/error.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/error.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/error.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/error.svg"),
         };
         break;
       default:
         this.iconPath = {
-          light: vscode.Uri.file(__dirname + "/../resources/info.svg"),
-          dark: vscode.Uri.file(__dirname + "/../resources/info.svg"),
+          light: vscode.Uri.file(__dirname + "/../resources/light/info.svg"),
+          dark: vscode.Uri.file(__dirname + "/../resources/dark/info.svg"),
         };
     }
   }
