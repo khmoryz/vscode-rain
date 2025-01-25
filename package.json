@@ -1,6 +1,6 @@
 {
   "name": "vscode-rain",
-  "displayName": "vscode-rain",
+  "displayName": "AWS CloudFormation Rain",
   "publisher": "khmoryz",
   "description": "VSCode Extension for Rain",
   "version": "0.0.3",
