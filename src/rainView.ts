@@ -2,6 +2,10 @@ import * as vscode from "vscode";
 import { exec } from "child_process";
 import * as rainCommand from "./rainCommand";
 
+// For auto refresh
+let refreshInterval: NodeJS.Timeout | undefined;
+let refreshTimer: NodeJS.Timeout | undefined;
+
 export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
   private _onDidChangeTreeData: vscode.EventEmitter<RainItem | undefined | void> = new vscode.EventEmitter<RainItem | undefined | void>();
   readonly onDidChangeTreeData: vscode.Event<RainItem | undefined | void> = this._onDidChangeTreeData.event;
@@ -57,6 +61,25 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
 
   refresh(): void {
     this._onDidChangeTreeData.fire();
+    this.startAutoRefresh();
+  }
+
+  // Update every 30 seconds for 30 minutes
+  private startAutoRefresh(): void {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+    }
+    if (refreshTimer) {
+      clearTimeout(refreshTimer);
+    }
+    refreshInterval = setInterval(() => this._onDidChangeTreeData.fire(), 30 * 1000);
+    refreshTimer = setTimeout(() => {
+      if (refreshInterval) {
+        clearInterval(refreshInterval);
+        refreshInterval = undefined;
+      }
+      vscode.window.showInformationMessage("Auto refresh stopped");
+    }, 30 * 60 * 1000);
   }
 }
 
