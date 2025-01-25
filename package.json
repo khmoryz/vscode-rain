@@ -32,7 +32,7 @@
       },
       {
         "command": "vscode-rain.refreshView",
-        "title": "Rain: Refresh View",
+        "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
           "dark": "resources/dark/refresh.svg"
