@@ -45,9 +45,10 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
           .split("\n")
           .slice(1)
           .filter((line) => line)
+          .reverse()
           .map((line) => {
-            const [stackName, status] = line.split(": ");
-            return new RainItem(stackName, status);
+            const [stackName, status] = line.split(":");
+            return new RainItem(stackName.slice(1), status.slice(1));
           });
         resolve(items);
       });
