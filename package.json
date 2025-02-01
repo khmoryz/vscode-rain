@@ -24,6 +24,10 @@
         "title": "Rain: Deploy with active file"
       },
       {
+        "command": "vscode-rain.build",
+        "title": "Rain: Build starter CloudFormation templates"
+      },
+      {
         "command": "vscode-rain.console",
         "title": "Rain: Open console with browser",
         "icon": {

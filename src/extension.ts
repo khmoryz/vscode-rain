@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import * as rainView from "./rainView";
 import * as rainCommand from "./rainCommand";
+import resourceTypes from "./resourceTypes";
 import { exec } from "child_process";
 
 // This method is called when your extension is activated
@@ -47,6 +48,24 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(disposable);
+
+  const buildDisposable = vscode.commands.registerCommand("vscode-rain.build", () => {
+    vscode.window.showQuickPick(resourceTypes).then((selected) => {
+      if (!selected) {
+        return;
+      }
+      exec(rainCommand.get("build", [selected], []), (error, stdout, stderr) => {
+        if (error) {
+          vscode.window.showErrorMessage(`Error: ${stderr}`);
+          return;
+        }
+        vscode.env.clipboard.writeText(stdout);
+        vscode.window.showInformationMessage('Coppied!');
+      });
+    });
+  });
+
+  context.subscriptions.push(buildDisposable);
 
   const rainViewProvider = new rainView.RainViewProvider();
   vscode.window.registerTreeDataProvider("vscode-rain-view", rainViewProvider);
