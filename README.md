@@ -12,9 +12,9 @@ VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a 
 ## Features
 
 - `Rain: Deploy with active file`
-  - <img alt="[deploy demo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/demo-rain-deploy.gif">
+  - <img alt="[deploy demo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/demo-rain-deploy.gif" width="320">
 - `Rain: Build starter CloudFormation templates`
-  - <img alt="[build demo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/demo-rain-build.gif">
+  - <img alt="[build demo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/demo-rain-build.gif" width="320">
 - `Rain: Open console with browser`
 
 ## Requirements
