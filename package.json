@@ -3,6 +3,7 @@
   "displayName": "AWS CloudFormation Rain",
   "publisher": "khmoryz",
   "description": "VSCode Extension for Rain",
+  "icon": "resources/icon.png",
   "version": "0.0.4",
   "repository": {
     "type": "git",
@@ -52,7 +53,7 @@
         {
           "id": "vscode-rain-sidebar",
           "title": "Rain",
-          "icon": "resources/rain-icon.svg"
+          "icon": "resources/dark/treeview-icon.svg"
         }
       ]
     },

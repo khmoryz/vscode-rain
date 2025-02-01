@@ -1,5 +1,7 @@
 # vscode-rain (beta)
 
+<img alt="[vscode-rain logo]" src="https://raw.githubusercontent.com/awslabs/aws-cfn-lint-visual-studio-code/main/resources/icon.png" width="150" align="right">
+
 VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a command line tool for working with AWS CloudFormation templates and stacks.  
 
 > [!NOTE]
