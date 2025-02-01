@@ -1,4 +1,4 @@
-# vscode-rain (beta)
+# vscode-rain
 
 <img alt="[vscode-rain logo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/icon.png" width="150" align="right">
 
