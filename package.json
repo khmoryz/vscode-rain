@@ -69,6 +69,7 @@
       "view/title": [
         {
           "command": "vscode-rain.console",
+          "when": "view == vscode-rain-view",
           "group": "navigation"
         }
       ],
