@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  const disposable = vscode.commands.registerCommand("vscode-rain.deploy", () => {
+  const disposable = vscode.commands.registerCommand("vscode-rain.deployExistingStack", () => {
     const stackList: string[] = [];
     exec(rainCommand.get("ls", [], []), (error, stdout, stderr) => {
       if (error) {
@@ -44,8 +44,6 @@ export function activate(context: vscode.ExtensionContext) {
           stackList.push(stackName.slice(1));
         });
 
-      // Note: Although using showQuickPick would prevent free input, 
-      //       we decided that it would be more convenient to be able to choose an existing stack name
       vscode.window.showQuickPick(stackList, { placeHolder: "What stack name you want to deploy?" }).then((input) => {
         if (!input) {
           return;
@@ -66,6 +64,31 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(disposable);
+
+  const disposableDeployExistingStack = vscode.commands.registerCommand("vscode-rain.deployNewStack", () => {
+    vscode.window
+      .showInputBox({
+        prompt: "Enter the stack name",
+        placeHolder: "Stack name",
+      })
+      .then((stackName) => {
+        if (stackName) {
+          const activeTextEditor = vscode.window.activeTextEditor;
+          if (activeTextEditor) {
+            const filePath = activeTextEditor.document.fileName;
+            if (!terminal) {
+              terminal = vscode.window.createTerminal("Rain");
+            }
+            terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
+            terminal.show();
+          } else {
+            vscode.window.showErrorMessage("No active file found");
+          }
+        }
+      });
+  });
+
+  context.subscriptions.push(disposableDeployExistingStack);
 
   const buildDisposable = vscode.commands.registerCommand("vscode-rain.build", () => {
     vscode.window.showQuickPick(resourceTypes).then((selected) => {

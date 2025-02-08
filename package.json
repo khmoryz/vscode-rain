@@ -20,8 +20,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-rain.deploy",
-        "title": "Rain: Deploy to an existing stack with active file"
+        "command": "vscode-rain.deployExistingStack",
+        "title": "Rain: Deploy an existing stack with active file"
+      },
+      {
+        "command": "vscode-rain.deployNewStack",
+        "title": "Rain: Deploy a new stack with active file"
       },
       {
         "command": "vscode-rain.build",
