@@ -14,6 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "vscode-rain" is now active!');
 
   let rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
+  let terminal: vscode.Terminal | undefined;
 
   const updateRainPath = () => {
     rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
@@ -52,7 +53,9 @@ export function activate(context: vscode.ExtensionContext) {
         const activeTextEditor = vscode.window.activeTextEditor;
         if (activeTextEditor) {
           const filePath = activeTextEditor.document.fileName;
-          const terminal = vscode.window.createTerminal(`Rain Deploy: ${input}`);
+          if (!terminal) {
+            terminal = vscode.window.createTerminal("Rain");
+          }
           terminal.sendText(rainCommand.get("deploy", [filePath, input], []));
           terminal.show();
         } else {
@@ -96,7 +99,9 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showErrorMessage(`Error: ${stderr}`);
         return;
       }
-      const terminal = vscode.window.createTerminal("Rain Console");
+      if (!terminal) {
+        terminal = vscode.window.createTerminal("Rain");
+      }
       terminal.sendText(stdout);
       terminal.show();
     });
@@ -115,7 +120,9 @@ export function activate(context: vscode.ExtensionContext) {
       .then((fileUri) => {
         if (fileUri && fileUri[0]) {
           const templateFilePath = fileUri[0].fsPath;
-          const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
+          if (!terminal) {
+            terminal = vscode.window.createTerminal("Rain");
+          }
           terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], []));
           terminal.show();
         } else {
