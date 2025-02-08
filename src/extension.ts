@@ -26,25 +26,40 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   const disposable = vscode.commands.registerCommand("vscode-rain.deploy", () => {
-    // Execute `rain deploy` with active file path after inputing the stack name
-    vscode.window
-      .showInputBox({
-        prompt: "Enter the stack name",
-        placeHolder: "Stack name",
-      })
-      .then((stackName) => {
-        if (stackName) {
-          const activeTextEditor = vscode.window.activeTextEditor;
-          if (activeTextEditor) {
-            const filePath = activeTextEditor.document.fileName;
-                const terminal = vscode.window.createTerminal(`Rain Deploy: ${stackName}`);
-                terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
-                terminal.show();
-          } else {
-            vscode.window.showErrorMessage("No active file found");
-          }
+    const stackList: string[] = [];
+    exec(rainCommand.get("ls", [], []), (error, stdout, stderr) => {
+      if (error) {
+        vscode.window.showErrorMessage(`Error: ${stderr}`);
+        return;
+      }
+
+      const items = stdout
+        .split("\n")
+        .slice(1)
+        .filter((line) => line)
+        .reverse()
+        .map((line) => {
+          const [stackName, _] = line.split(":");
+          stackList.push(stackName.slice(1));
+        });
+
+      // Note: Although using showQuickPick would prevent free input, 
+      //       we decided that it would be more convenient to be able to choose an existing stack name
+      vscode.window.showQuickPick(stackList, { placeHolder: "What stack name you want to deploy?" }).then((input) => {
+        if (!input) {
+          return;
+        }
+        const activeTextEditor = vscode.window.activeTextEditor;
+        if (activeTextEditor) {
+          const filePath = activeTextEditor.document.fileName;
+          const terminal = vscode.window.createTerminal(`Rain Deploy: ${input}`);
+          terminal.sendText(rainCommand.get("deploy", [filePath, input], []));
+          terminal.show();
+        } else {
+          vscode.window.showErrorMessage("No active file found");
         }
       });
+    });
   });
 
   context.subscriptions.push(disposable);
@@ -60,7 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
           return;
         }
         vscode.env.clipboard.writeText(stdout);
-        vscode.window.showInformationMessage('Coppied!');
+        vscode.window.showInformationMessage("Coppied!");
       });
     });
   });
@@ -89,22 +104,24 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(consoleDisposable);
 
   const deployStackDisposable = vscode.commands.registerCommand("vscode-rain.deployStack", (item: rainView.RainItem) => {
-    vscode.window.showOpenDialog({
-      canSelectMany: false,
-      openLabel: 'Select Template File',
-      filters: {
-        'Templates': ['.yaml', '.yml', '.json']
-      }
-    }).then((fileUri) => {
-      if (fileUri && fileUri[0]) {
-        const templateFilePath = fileUri[0].fsPath;
-        const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
-        terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], []));
-        terminal.show();
-      } else {
-        vscode.window.showErrorMessage("Template file path is required");
-      }
-    });
+    vscode.window
+      .showOpenDialog({
+        canSelectMany: false,
+        openLabel: "Select Template File",
+        filters: {
+          Templates: [".yaml", ".yml", ".json"],
+        },
+      })
+      .then((fileUri) => {
+        if (fileUri && fileUri[0]) {
+          const templateFilePath = fileUri[0].fsPath;
+          const terminal = vscode.window.createTerminal(`Rain Deploy: ${item.label}`);
+          terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], []));
+          terminal.show();
+        } else {
+          vscode.window.showErrorMessage("Template file path is required");
+        }
+      });
   });
 
   context.subscriptions.push(deployStackDisposable);

@@ -21,7 +21,7 @@
     "commands": [
       {
         "command": "vscode-rain.deploy",
-        "title": "Rain: Deploy with active file"
+        "title": "Rain: Deploy to an existing stack with active file"
       },
       {
         "command": "vscode-rain.build",
