@@ -18,7 +18,8 @@ VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a 
 - `Rain: Deploy an existing stack with active file`
 - `Rain: Open console with browser`
 
-## Requirements
+## Getting Started
+
 Requires `rain` to be installed: `brew install rain`.
 
 See the [Getting started](https://github.com/aws-cloudformation/rain?tab=readme-ov-file#getting-started) for more information.
