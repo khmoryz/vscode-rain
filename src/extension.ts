@@ -6,15 +6,16 @@ import * as rainCommand from "./rainCommand";
 import resourceTypes from "./resourceTypes";
 import { exec } from "child_process";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "vscode-rain" is now active!');
+let terminal: vscode.Terminal | undefined;
 
+vscode.window.onDidCloseTerminal((_terminal) => {
+  if (terminal !== undefined && terminal.name === "Rain") {
+    terminal = undefined;
+  }
+});
+
+export function activate(context: vscode.ExtensionContext) {
   let rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
-  let terminal: vscode.Terminal | undefined;
 
   const updateRainPath = () => {
     rainPath = vscode.workspace.getConfiguration("rain").get<string>("path", "rain");
