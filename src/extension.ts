@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const disposable = vscode.commands.registerCommand("vscode-rain.deployExistingStack", () => {
     const stackList: string[] = [];
-    exec(rainCommand.get("ls", [], []), (error, stdout, stderr) => {
+    exec(rainCommand.get("ls", [], [], true), (error, stdout, stderr) => {
       if (error) {
         vscode.window.showErrorMessage(`Error: ${stderr}`);
         return;
@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
           if (!terminal) {
             terminal = vscode.window.createTerminal("Rain");
           }
-          terminal.sendText(rainCommand.get("deploy", [filePath, input], []));
+          terminal.sendText(rainCommand.get("deploy", [filePath, input], [], true));
           terminal.show();
         } else {
           vscode.window.showErrorMessage("No active file found");
@@ -80,7 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (!terminal) {
               terminal = vscode.window.createTerminal("Rain");
             }
-            terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
+            terminal.sendText(rainCommand.get("deploy", [filePath, stackName], [], true));
             terminal.show();
           } else {
             vscode.window.showErrorMessage("No active file found");
@@ -91,12 +91,50 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposableDeployExistingStack);
 
+  const disposableFmt = vscode.commands.registerCommand("vscode-rain.fmt", () => {
+    const activeTextEditor = vscode.window.activeTextEditor;
+    if (activeTextEditor) {
+      const filePath = activeTextEditor.document.fileName;
+      exec(rainCommand.get("fmt", [filePath], ["--write"], false), (error, stdout, stderr) => {
+        if (error) {
+          vscode.window.showErrorMessage(`Error: ${stderr}`);
+          return;
+        }
+        vscode.window.showInformationMessage("Formatted!");
+      });
+    } else {
+      vscode.window.showErrorMessage("No active file found");
+    }
+    // vscode.window
+    //   .showInputBox({
+    //     prompt: "Enter the stack name",
+    //     placeHolder: "Stack name",
+    //   })
+    //   .then((stackName) => {
+    //     if (stackName) {
+    //       const activeTextEditor = vscode.window.activeTextEditor;
+    //       if (activeTextEditor) {
+    //         const filePath = activeTextEditor.document.fileName;
+    //         if (!terminal) {
+    //           terminal = vscode.window.createTerminal("Rain");
+    //         }
+    //         terminal.sendText(rainCommand.get("deploy", [filePath, stackName], []));
+    //         terminal.show();
+    //       } else {
+    //         vscode.window.showErrorMessage("No active file found");
+    //       }
+    //     }
+    //   });
+  });
+
+  context.subscriptions.push(disposableFmt);
+
   const buildDisposable = vscode.commands.registerCommand("vscode-rain.build", () => {
     vscode.window.showQuickPick(resourceTypes).then((selected) => {
       if (!selected) {
         return;
       }
-      exec(rainCommand.get("build", [selected], []), (error, stdout, stderr) => {
+      exec(rainCommand.get("build", [selected], [], true), (error, stdout, stderr) => {
         if (error) {
           vscode.window.showErrorMessage(`Error: ${stderr}`);
           return;
@@ -118,7 +156,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(refreshDisposable);
 
   const consoleDisposable = vscode.commands.registerCommand("vscode-rain.console", () => {
-    exec(rainCommand.get("console", [], []), (error, stdout, stderr) => {
+    exec(rainCommand.get("console", [], [], true), (error, stdout, stderr) => {
       if (error) {
         vscode.window.showErrorMessage(`Error: ${stderr}`);
         return;
@@ -147,7 +185,7 @@ export function activate(context: vscode.ExtensionContext) {
           if (!terminal) {
             terminal = vscode.window.createTerminal("Rain");
           }
-          terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], []));
+          terminal.sendText(rainCommand.get("deploy", [templateFilePath, String(item.label)], [], true));
           terminal.show();
         } else {
           vscode.window.showErrorMessage("Template file path is required");

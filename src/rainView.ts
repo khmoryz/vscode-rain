@@ -38,7 +38,7 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
 
   private getRainItems(): Thenable<RainItem[]> {
     return new Promise((resolve, reject) => {
-      exec(rainCommand.get("ls", [], []), (error, stdout, stderr) => {
+      exec(rainCommand.get("ls", [], [],true), (error, stdout, stderr) => {
         if (error) {
           vscode.window.showErrorMessage(`Error: ${stderr}`);
           reject([]);

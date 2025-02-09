@@ -32,6 +32,10 @@
         "title": "Rain: Build starter CloudFormation templates"
       },
       {
+        "command": "vscode-rain.fmt",
+        "title": "Rain: Format active file"
+      },
+      {
         "command": "vscode-rain.console",
         "title": "Rain: Open console with browser",
         "icon": {
