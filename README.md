@@ -16,6 +16,7 @@ VS Code Rain uses [Rain](https://github.com/aws-cloudformation/rain) which is a 
 - `Rain: Deploy a new stack with active file`
   - <img alt="[deploy demo]" src="https://raw.githubusercontent.com/khmoryz/vscode-rain/main/resources/demo-rain-deploy.gif" width="320">
 - `Rain: Deploy an existing stack with active file`
+- `Rain: Format active file`
 - `Rain: Open console with browser`
 
 ## Getting Started
