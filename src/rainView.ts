@@ -64,7 +64,7 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
     this.startAutoRefresh();
   }
 
-  // Update every 30 seconds for 30 minutes
+  // Update every 10 seconds for 30 minutes
   private startAutoRefresh(): void {
     if (refreshInterval) {
       clearInterval(refreshInterval);
@@ -72,7 +72,7 @@ export class RainViewProvider implements vscode.TreeDataProvider<RainItem> {
     if (refreshTimer) {
       clearTimeout(refreshTimer);
     }
-    refreshInterval = setInterval(() => this._onDidChangeTreeData.fire(), 30 * 1000);
+    refreshInterval = setInterval(() => this._onDidChangeTreeData.fire(), 10 * 1000);
     refreshTimer = setTimeout(() => {
       if (refreshInterval) {
         clearInterval(refreshInterval);
